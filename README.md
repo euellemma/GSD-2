@@ -320,14 +320,46 @@ gsd (CLI binary)
 
 ## Requirements
 
-- **Node.js** ≥ 20.6.0
-- **Anthropic API key** — handled by Pi's built-in auth flow on first launch
+- **Node.js** ≥ 20.6.0 (22+ recommended)
+- **An LLM provider** — Anthropic API key (handled by Pi's built-in auth flow on first launch), or any of the 20+ supported providers
 - **Git** — initialized automatically if missing
 
 Optional:
 - Brave Search API key (web research)
 - Context7 API key (library docs)
 - Jina API key (page extraction)
+
+---
+
+## Use Any Model
+
+GSD isn't locked to one provider. It runs on the [Pi SDK](https://github.com/nicholasgasior/pi-coding-agent), which supports **20+ model providers** out of the box. Use different models for different phases — Opus for planning, Sonnet for execution, a fast model for research.
+
+### Built-in Providers
+
+Anthropic, OpenAI, Google (Gemini), OpenRouter, GitHub Copilot, Amazon Bedrock, Azure OpenAI, Google Vertex, Groq, Cerebras, Mistral, xAI, HuggingFace, Vercel AI Gateway, and more.
+
+### OAuth / Max Plans
+
+If you have a **Claude Max**, **Codex**, or **GitHub Copilot** subscription, you can use those directly — Pi handles the OAuth flow. No API key needed.
+
+### OpenRouter
+
+[OpenRouter](https://openrouter.ai) gives you access to hundreds of models through a single API key. Use it to run GSD with Llama, DeepSeek, Qwen, or anything else OpenRouter supports.
+
+### Per-Phase Model Selection
+
+In your preferences (`/gsd prefs`), assign different models to different phases:
+
+```yaml
+models:
+  research: openrouter/deepseek/deepseek-r1
+  planning: claude-opus-4-6
+  execution: claude-sonnet-4-6
+  completion: claude-sonnet-4-6
+```
+
+Use expensive models where quality matters (planning, complex execution) and cheaper/faster models where speed matters (research, simple completions). GSD tracks cost per-model so you can see exactly where your budget goes.
 
 ---
 
